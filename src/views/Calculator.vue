@@ -6,47 +6,46 @@
           <p v-if="msgError">{{ theErrorMsg }}</p>
           <div v-if="!msgError">
             <p class="previousResult">{{ previousResult }}</p>
-            <p class="currentDisplay">{{ current }}</p>
           </div>
           <input v-model="current" :disabled="true" type="text" class="inputEntry">
         </div>
         <div class="is-mobile is-centered column has-text-centered box backgroundButtons">
           <div class="column is-paddingless is-vcentered divColumns is-mobile is-centered ">
-            <button class="button is-danger is-rounded specialButton" @click="backspace"><-</button>
-            <button class="button is-warning is-rounded specialButton" @click="clear">CA</button>
-            <button class="button is-rounded operatorBtn" @click="addOperator('²')">x²</button>
-            <button class="button is-rounded operatorBtn" @click="addOperator('%')">%</button>
+            <button class="button is-danger  specialButton" @click="backspace"><-</button>
+            <button class="button is-warning  specialButton" @click="clear">CA</button>
+            <button class="button  operatorBtn" @click="addOperator('²')">x²</button>
+            <button class="button  operatorBtn" @click="addOperator('%')">%</button>
 
           </div>
           <div class="column is-paddingless divColumns is-mobile is-centered">
-            <button class="button is-rounded operatorBtn" @click="addOperator('π')">π</button>
-            <button class="button is-rounded operatorBtn" @click="addOperator('(')">(</button>
-            <button class="button is-rounded operatorBtn" @click="addOperator(')')">)</button>
-            <button class="button is-rounded operatorBtn" @click="addOperator('*')">*</button>
+            <button class="button  operatorBtn" @click="addOperator('π')">π</button>
+            <button class="button  operatorBtn" @click="addOperator('(')">(</button>
+            <button class="button  operatorBtn" @click="addOperator(')')">)</button>
+            <button class="button  operatorBtn" @click="addOperator('*')">*</button>
           </div>
           <div class="column is-paddingless divColumns is-mobile is-centered">
-            <button class="button is-rounded" @click="addNumber(7)">7</button>
-            <button class="button is-rounded" @click="addNumber(8)"> 8</button>
-            <button class="button is-rounded" @click="addNumber(9)"> 9</button>
-            <button class="button is-rounded operatorBtn" @click="addOperator('/')">/</button>
+            <button class="button " @click="addNumber(7)">7</button>
+            <button class="button " @click="addNumber(8)"> 8</button>
+            <button class="button " @click="addNumber(9)"> 9</button>
+            <button class="button  operatorBtn" @click="addOperator('/')">/</button>
           </div>
           <div class="column is-paddingless divColumns is-mobile is-centered">
-            <button class="button is-rounded" @click="addNumber(4)">4</button>
-            <button class="button is-rounded" @click="addNumber(5)">5</button>
-            <button class="button is-rounded" @click="addNumber(6)">6</button>
-            <button class="button is-rounded operatorBtn" @click="addOperator('-')">-</button>
+            <button class="button " @click="addNumber(4)">4</button>
+            <button class="button " @click="addNumber(5)">5</button>
+            <button class="button " @click="addNumber(6)">6</button>
+            <button class="button  operatorBtn" @click="addOperator('-')">-</button>
           </div>
           <div class="column is-paddingless divColumns is-mobile is-centered">
-            <button class="button is-rounded" @click="addNumber(1)">1</button>
-            <button class="button is-rounded" @click="addNumber(2)">2</button>
-            <button class="button is-rounded" @click="addNumber(3)">3</button>
-            <button class="button is-rounded operatorBtn" @click="addOperator('+')">+</button>
+            <button class="button " @click="addNumber(1)">1</button>
+            <button class="button " @click="addNumber(2)">2</button>
+            <button class="button " @click="addNumber(3)">3</button>
+            <button class="button  operatorBtn" @click="addOperator('+')">+</button>
           </div>
           <div class="column is-paddingless divColumns is-mobile is-centered">
-            <router-link class="button is-rounded specialButton" to="/calculadora-juros-compostos">J.</router-link>
-            <button class="button is-rounded" @click="addNumber(0)">0</button>
-            <button class="button is-rounded " @click="addOperator('.')">.</button>
-            <button class="button is-success is-rounded specialButton" @click="equal">=</button>
+            <router-link class="button  specialButton" to="/calculadora-juros-compostos">J.</router-link>
+            <button class="button " @click="addNumber(0)">0</button>
+            <button class="button  " @click="addOperator('.')">.</button>
+            <button class="button  specialButton" @click="equal">=</button>
           </div>
         </div>
       </div>
@@ -55,7 +54,7 @@
       <div class="columns is-mobile is-half  ">
         <div class="box historyBack">
           <p class="box historyValue" v-for=" x in history">{{ previousEquation + "=" + result }}</p>
-          <button @click="cleanHist()" class="is-centered button is-rounded buttonClean">Limpar</button>
+          <button @click="cleanHist()" class="is-centered button  buttonClean">Limpar</button>
         </div>
       </div>
     </div>
@@ -87,6 +86,7 @@ export default {
     },
     addOperator(operator) {
       const isOperator = ["+", "-", "*", "/", "%", "!", "."];
+      const isParenthesis = "(";
       if (!this.current) {
         this.theErrorMsg = "Não pode operador antes de numero";
         this.msgError = true;
@@ -104,12 +104,12 @@ export default {
         }, 2000);
         return;
       }
+      if(!isOperator.includes(lastChar)  && operator.includes(isParenthesis)) this.current += '*';
 
       this.current = this.current + operator;
     },
     verifyOperator() {
       const isOperator = ['+', '-', '*', '/', '%', '!'];
-      console.log(this.current.includes(isOperator));
       if (this.current.includes(isOperator)) {
         return true;
       } else {
@@ -121,12 +121,12 @@ export default {
         return false;
       }
     },
-    verifyParenthesis() {
-      if (this.current.includes( "(" )) {
-        let parenthesisOpenPos = this.current.indexOf('(')
-        let parenthesisClosePos = this.current.indexOf(')')
-        console.log(parenthesisClosePos);
+    verifyParenthesis(value) {
+      if (value.includes( "(" )) {
+        let parenthesisOpenPos = value.indexOf('(')
+        let parenthesisClosePos = value.indexOf(')')
         if (Math.abs(parenthesisOpenPos - parenthesisClosePos) === 1 || parenthesisClosePos === 0) {
+
           this.theErrorMsg = "Não é possivel conta com parenteses vazios";
           this.msgError = true;
           setTimeout(() => {
@@ -134,7 +134,8 @@ export default {
           }, 2000);
           return false;
         }
-      } else if (this.current.includes(")")) {
+      } else if (value.includes(")")) {
+
         this.theErrorMsg = "Não é possivel conta com parenteses unico";
         this.msgError = true;
         setTimeout(() => {
@@ -158,12 +159,11 @@ export default {
       this.current = this.current.substring(0, (this.length - 1));
     },
     equal() {
-
       if (!this.current) return;
-      if(!this.verifyParenthesis()) return;
+      if(!this.verifyParenthesis(this.current)) return;
       this.shuntingYard(this.tokenize(this.current))
       this.previousEquation = this.current;
-      this.previousResult = this.result.toFixed(2);
+      this.previousResult = this.result;
       if (isNaN(this.result)) {
         this.previousResult = "Não foi possivel calcular"
         this.previousEquation = "";
@@ -335,7 +335,6 @@ export default {
   background-color: #1c1a1a;
   padding: 3px;
   max-width: 400px;
-  box-shadow: rgba(28, 26, 26, 0.68) 2px 15px 15px 15px;
 }
 
 .display {
@@ -349,10 +348,6 @@ export default {
 }
 
 .previousResult {
-  word-break: break-word;
-}
-
-.currentDisplay {
   word-break: break-word;
 }
 
@@ -383,7 +378,6 @@ button {
   margin: 10px;
   border: #1c1a1a solid 3px;
   width: 55px;
-  box-shadow: rgba(28, 26, 26, 0.68) 2px 2px 2px 2px;
 }
 
 .operatorBtn {
@@ -398,7 +392,7 @@ button {
 
 .buttonClean {
   width: 70px;
-  box-shadow: rgba(28, 26, 26, 0.68) 2px 2px 2px 2px;
+
 }
 
 .specialButton {
@@ -407,18 +401,14 @@ button {
   margin: 10px;
   width: 55px;
   font-size: 15px;
-  box-shadow: rgba(28, 26, 26, 0.68) 3px 3px 3px 2px;
 }
-
 
 .historyBlock {
   margin: 0;
-
 }
 
 .historyBack {
   background-color: darkgrey;
-  box-shadow: rgba(28, 26, 26, 0.68) 2px 15px 15px 15px;
   width: 400px;
   max-width: 400px;
 }
