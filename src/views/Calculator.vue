@@ -50,10 +50,10 @@
         </div>
       </div>
     </div>
-    <div class="is-mobile is-centered ">
-      <div class="section columns is-mobile is-centered historyBlock ">
-        <div class="is-mobile is-half is-centered column box historyBack">
-          <p class="box historyValue" v-for=" value in history">{{ value }}</p>
+    <div class="section columns is-mobile  is-centered historyBlock">
+      <div class="columns is-mobile is-half  ">
+        <div class="box historyBack">
+          <p class="box historyValue" v-for=" x in history">{{previousEquation + "=" + result}}</p>
           <button @click="cleanHist()" class="is-centered button is-rounded buttonClean">Limpar</button>
         </div>
       </div>
@@ -136,11 +136,10 @@ export default {
       let number = '';
       let hasDot = false;
       for (const char of infix) {
-        if (char.match(/[0-9]/)) {
-          number += char;
-        } else if (char === '.') {
+        if (char.match(/[0-9]/)) number += char;
+        else if (char === '.') {
           if (hasDot) {
-            this.theErrorMsg = `Não é aceito mais de uma ponto`;
+            this.theErrorMsg = `Não é aceito mais de um ponto`;
             this.msgError = true;
             setTimeout(() => {
               this.msgError = false;
@@ -149,7 +148,8 @@ export default {
           }
           number += char;
           hasDot = true;
-        } else {
+        }
+        else {
           if (number !== "") {
             tokens.push(number);
             number = "";
@@ -201,9 +201,7 @@ export default {
               output.push(c);
             }
           }
-          if (!foundLeftParen) {
-            throw new Error("Não foi possível encontrar o parenteses, verifique");
-          }
+          if (!foundLeftParen) throw new Error("Não foi possível encontrar o parenteses, verifique");
         } else {
           this.theErrorMsg = `Caractere desconhecido: ${ch}`;
           this.msgError = true;
@@ -254,7 +252,6 @@ export default {
           if (token === "!") result = -operand1;
           if (token === "%") result = parseFloat(operand2 / 100);
           stack.push(result);
-
         }
       }
       this.result = stack.pop();
@@ -286,6 +283,12 @@ export default {
 * {
   font-weight: bold;
 }
+
+.calculatorBack {
+  margin:  0;
+  padding: 20px 0 0 0;
+}
+
 
 .calculatorAll {
   background-color: #1c1a1a;
@@ -334,16 +337,11 @@ export default {
   max-width: 400px;
 }
 
-.historyBack {
-  background-color: darkgrey;
-  box-shadow: rgba(28, 26, 26, 0.68) 2px 15px 15px 15px;
-  max-width: 400px;
-}
 
 button {
   margin: 10px;
   border: #1c1a1a solid 3px;
-  width: 55.09px;
+  width: 55px;
   box-shadow: rgba(28, 26, 26, 0.68) 2px 2px 2px 2px;
 }
 
@@ -357,9 +355,22 @@ button {
   max-width: 56px;
   border: #1c1a1a solid 3px;
   margin: 10px;
-  width: 55.08px;
+  width: 55px;
   font-size: 15px;
   box-shadow: rgba(28, 26, 26, 0.68) 3px 3px 3px 2px;
+}
+
+
+.historyBlock {
+ margin: 0;
+
+}
+
+.historyBack {
+  background-color: darkgrey;
+  box-shadow: rgba(28, 26, 26, 0.68) 2px 15px 15px 15px;
+  width: 400px;
+  max-width: 400px;
 }
 
 .historyValue{
@@ -367,6 +378,11 @@ button {
 }
 
 @media only screen and (max-width: 800px) {
+  .calculatorBack {
+    margin: 0;
+    padding: 0;
+  }
+
   .calculatorAll {
     scale: 1.8;
     margin-top: 200px;
@@ -376,10 +392,6 @@ button {
     margin-bottom: 280px;
   }
 
-  .calculatorBack {
-    margin: 0;
-    padding: 0;
-  }
 
   .inputEntry {
     max-width: 275px;
@@ -404,10 +416,12 @@ button {
     border: none;
   }
 
-  .historyBlock {
-    scale: 1.5;
-    padding-top: 2px;
-    font-size: 10px
+  .historyBack{
+    scale: 1.4;
+  }
+
+  .buttonClean{
+    scale: 1.4;
   }
 
 }
@@ -454,11 +468,17 @@ button {
     border: none;
   }
 
-  .historyBlock {
-    scale: 1.8;
-    margin-top: 120px;
-    font-size: 5px
+  .historyBack{
+    width: 280px;
+    max-width: 370px;
+    padding: 15px 0 15px 0;
   }
+
+  .buttonClean{
+
+    margin: 0 0 0 30px;
+  }
+
 }
 
 @media only screen and (max-width: 376px) {
@@ -477,13 +497,11 @@ button {
 
   .display {
     max-width: 380px;
-    height: 50px;
-    max-height: 50px;
-    padding-left: 2px;
+    padding: 0 0 -20px 2px;
   }
 
   .inputEntry {
-    max-width: 180px;
+    max-width: 140px;
   }
 
   .backgroundButtons {
@@ -495,7 +513,7 @@ button {
   }
 
   button {
-    width: 30px;
+    width: 20px;
     font-size: 8px;
     border: none;
   }
@@ -503,73 +521,14 @@ button {
   .specialButton {
     margin: 3px;
     font-size: 8px;
-    width: 30px;
+    width: 20px;
     border: none;
-  }
-
-  .historyBlock {
-    scale: 1.8;
-    margin-top: 120px;
-    font-size: 5px
-  }
-}
-
-@media only screen and (max-width: 320px) {
-
-  .calculatorAll {
-    scale: 1.8;
-    margin: 180px 0 50px 0;
-    padding: 2px;
-    font-size: 10px;
-  }
-
-  .calculatorBack {
-    margin: 0;
-    padding: 0;
-  }
-
-  .display {
-    max-width: 380px;
-    height: 50px;
-    max-height: 50px;
-
-    padding-left: 2px;
-  }
-
-  .inputEntry {
-    max-width: 150px;
-  }
-
-  .backgroundButtons {
-    padding: 0;
-  }
-
-  .divColumns {
-    margin: 3px;
-    max-width: 300px;
-  }
-
-  button {
-    width: 25px;
-    font-size: 8px;
-    border: none;
-  }
-
-  .specialButton {
-    font-size: 8px;
-    width: 25px;
-    border: none;
-  }
-
-  .historyBlock {
-    scale: 1.8;
-    margin-top: 100px;
-    font-size: 5px;
-    width: 200px;
-    padding: 0;
   }
 
   .historyBack{
+    width:190px;
+    max-width: 300px;
   }
+
 }
 </style>

@@ -12,7 +12,7 @@
             <p>Tempo de rendimento (meses)</p>
             <input v-model="timeSimple" id="input3" class="input is-rounded" type="number" min="0" max="100">
             <h1 class="subtitle subtitleResultStyle">Juros: R$ {{ feesSimpleResult }} </h1>
-            <h1 v-if="msgError === ''" class="subtitle subtitleResultStyle">Resultado : R$ {{ feesWithValue }} </h1>
+            <h1 v-if="msgError === ''" class="subtitle subtitleResultStyle">Montante : R$ {{ feesWithValue }} </h1>
             <h1 v-else class="subtitle subtitleResultStyle">{{ msgError }}</h1>
           </div>
           <div class="columns">
@@ -82,8 +82,7 @@ export default {
         this.initialValue = 0;
         this.interestRate = 0;
       } else {
-        this.msgError = 'Verifique se as areas foram preenchidas ' +
-            'e valores estão corretos';
+        this.msgError = 'Verifique se as areas foram preenchidas ' + 'e valores estão corretos';
         setTimeout(() => {
           this.msgError = '';
         }, 2000);
@@ -98,10 +97,10 @@ export default {
       if (numberKeys.includes(keyCode) && this.valueSimple === "") {
         document.getElementById("input1").focus();
       }
-      if (numberKeys === 9 && this.valueSimple !== "") {
+      if (keyCode === 9 && this.valueSimple !== "") {
         document.getElementById("input2").focus();
       }
-      if (numberKeys === 9 && this.rateSimple !== "" && this.interestRate !== "") {
+      if (keyCode === 9 && this.rateSimple !== "" && this.interestRate !== "") {
         document.getElementById("input2").focus();
       }
     },
@@ -132,7 +131,6 @@ export default {
 
 .title {
   color: #ffffff;
-  text-shadow: rgba(28, 26, 26, 0.68) 2px 15px 10px;
 }
 
 p {

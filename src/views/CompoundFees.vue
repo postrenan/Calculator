@@ -6,8 +6,7 @@
           <div class="is-paddingless">
             <h2 class="title">Calculadora de juros compostos</h2>
             <p>Valor inicial(capital)</p>
-            <input v-model="initialValue" @keydown="keyListener" id="input1" class="input is-rounded" type="number"
-                   min="0">
+            <input v-model="initialValue" @keydown="keyListener" id="input1" class="input is-rounded" type="number" min="0">
             <p>Taxa de juros a.a</p>
             <input v-model="interestRate" id="input2" class="input is-rounded" type="number" min="0" max="100">
             <p>Tempo de rendimento (meses)</p>
@@ -96,10 +95,10 @@ export default {
       if (numberKeys.includes(keyCode) && this.initialValue === "") {
         document.getElementById("input1").focus();
       }
-      if (numberKeys === 9 && this.initialValue !== "") {
+      if (keyCode === 9 && this.initialValue !== "") {
         document.getElementById("input2").focus();
       }
-      if (numberKeys === 9 && this.initialValue !== "" && this.interestRate !== "") {
+      if (keyCode === 9 && this.initialValue !== "" && this.interestRate !== "") {
         document.getElementById("input2").focus();
       }
     },
@@ -122,7 +121,6 @@ export default {
 
 .title {
   color: #ffffff;
-  text-shadow: rgba(28, 26, 26, 0.68) 2px 15px 10px;
 }
 
 p {
@@ -152,7 +150,7 @@ button {
   box-shadow: rgba(28, 26, 26, 0.68) 2px 2px 2px 2px;
 }
 
-.rightColumBtn{
+.rightColumBtn {
   max-width: 80px;
   padding: 12px 12px 0 0;
 }
