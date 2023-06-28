@@ -320,7 +320,7 @@ export default {
   border: solid 1px black;
   outline: none;
   text-align: right;
-  width: 380px;
+  width: 100%;
   font-size: 15px;
   border-radius: 20px;
   color: #1c1a1a;
@@ -393,7 +393,8 @@ button {
   }
 
 
-  .inputEntry {
+  .inputEntry{
+
     max-width: 275px;
     font-size: 10px;
   }
@@ -426,7 +427,7 @@ button {
 
 }
 
-@media only screen and (max-width: 426px) {
+@media only screen and (max-width: 570px) {
 
   .calculatorAll {
     scale: 1.8;
@@ -481,7 +482,7 @@ button {
 
 }
 
-@media only screen and (max-width: 376px) {
+@media only screen and (max-width: 393px) {
 
   .calculatorAll {
     scale: 1.8;
@@ -496,12 +497,12 @@ button {
   }
 
   .display {
-    max-width: 380px;
+    max-width: 360px;
     padding: 0 0 -20px 2px;
   }
 
   .inputEntry {
-    max-width: 140px;
+    max-width: 180px;
   }
 
   .backgroundButtons {
