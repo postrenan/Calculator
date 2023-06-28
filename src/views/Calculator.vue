@@ -12,39 +12,40 @@
         </div>
         <div class="is-mobile is-centered column has-text-centered box backgroundButtons">
           <div class="column is-paddingless is-vcentered divColumns is-mobile is-centered ">
+            <button class="button is-danger is-rounded specialButton" @click="backspace"><-</button>
             <button class="button is-warning is-rounded specialButton" @click="clear">CA</button>
-            <button class="button is-rounded" @click="addOperator('π')">π</button>
-            <button class="button is-rounded " @click="addOperator('²')">x²</button>
-            <router-link class="button is-rounded specialButton" to="/calculadora-juros-compostos">J.</router-link>
+            <button class="button is-rounded operatorBtn" @click="addOperator('²')">x²</button>
+            <button class="button is-rounded operatorBtn" @click="addOperator('%')">%</button>
+
           </div>
           <div class="column is-paddingless divColumns is-mobile is-centered">
-            <button class="button is-danger is-rounded specialButton" @click="backspace"><-</button>
-            <button class="button is-rounded" @click="addOperator('(')">(</button>
-            <button class="button is-rounded" @click="addOperator(')')">)</button>
-            <button class="button is-rounded" @click="addOperator('*')">*</button>
+            <button class="button is-rounded operatorBtn" @click="addOperator('π')">π</button>
+            <button class="button is-rounded operatorBtn" @click="addOperator('(')">(</button>
+            <button class="button is-rounded operatorBtn" @click="addOperator(')')">)</button>
+            <button class="button is-rounded operatorBtn" @click="addOperator('*')">*</button>
           </div>
           <div class="column is-paddingless divColumns is-mobile is-centered">
             <button class="button is-rounded" @click="addNumber(7)">7</button>
             <button class="button is-rounded" @click="addNumber(8)"> 8</button>
             <button class="button is-rounded" @click="addNumber(9)"> 9</button>
-            <button class="button is-rounded" @click="addOperator('/')">/</button>
+            <button class="button is-rounded operatorBtn" @click="addOperator('/')">/</button>
           </div>
           <div class="column is-paddingless divColumns is-mobile is-centered">
             <button class="button is-rounded" @click="addNumber(4)">4</button>
             <button class="button is-rounded" @click="addNumber(5)">5</button>
             <button class="button is-rounded" @click="addNumber(6)">6</button>
-            <button class="button is-rounded" @click="addOperator('-')">-</button>
+            <button class="button is-rounded operatorBtn" @click="addOperator('-')">-</button>
           </div>
           <div class="column is-paddingless divColumns is-mobile is-centered">
             <button class="button is-rounded" @click="addNumber(1)">1</button>
             <button class="button is-rounded" @click="addNumber(2)">2</button>
             <button class="button is-rounded" @click="addNumber(3)">3</button>
-            <button class="button is-rounded" @click="addOperator('+')">+</button>
+            <button class="button is-rounded operatorBtn" @click="addOperator('+')">+</button>
           </div>
           <div class="column is-paddingless divColumns is-mobile is-centered">
-            <button class="button is-rounded " @click="addOperator('.')">.</button>
+            <router-link class="button is-rounded specialButton" to="/calculadora-juros-compostos">J.</router-link>
             <button class="button is-rounded" @click="addNumber(0)">0</button>
-            <button class="button is-rounded specialButton" @click="addOperator('%')">%</button>
+            <button class="button is-rounded " @click="addOperator('.')">.</button>
             <button class="button is-success is-rounded specialButton" @click="equal">=</button>
           </div>
         </div>
@@ -53,7 +54,7 @@
     <div class="section columns is-mobile  is-centered historyBlock">
       <div class="columns is-mobile is-half  ">
         <div class="box historyBack">
-          <p class="box historyValue" v-for=" x in history">{{previousEquation + "=" + result}}</p>
+          <p class="box historyValue" v-for=" x in history">{{ previousEquation + "=" + result }}</p>
           <button @click="cleanHist()" class="is-centered button is-rounded buttonClean">Limpar</button>
         </div>
       </div>
@@ -103,7 +104,46 @@ export default {
         }, 2000);
         return;
       }
+
       this.current = this.current + operator;
+    },
+    verifyOperator() {
+      const isOperator = ['+', '-', '*', '/', '%', '!'];
+      console.log(this.current.includes(isOperator));
+      if (this.current.includes(isOperator)) {
+        return true;
+      } else {
+        this.theErrorMsg = "Não é possivel conta sem operadores";
+        this.msgError = true;
+        setTimeout(() => {
+          this.msgError = false;
+        }, 2000);
+        return false;
+      }
+    },
+    verifyParenthesis() {
+      if (this.current.includes( "(" )) {
+        let parenthesisOpenPos = this.current.indexOf('(')
+        let parenthesisClosePos = this.current.indexOf(')')
+        console.log(parenthesisClosePos);
+        if (Math.abs(parenthesisOpenPos - parenthesisClosePos) === 1 || parenthesisClosePos === 0) {
+          this.theErrorMsg = "Não é possivel conta com parenteses vazios";
+          this.msgError = true;
+          setTimeout(() => {
+            this.msgError = false;
+          }, 2000);
+          return false;
+        }
+      } else if (this.current.includes(")")) {
+        this.theErrorMsg = "Não é possivel conta com parenteses unico";
+        this.msgError = true;
+        setTimeout(() => {
+          this.msgError = false;
+        }, 2000);
+        return false;
+      } else {
+        return true;
+      }
     },
     cleanHist() {
       this.history = [];
@@ -118,7 +158,9 @@ export default {
       this.current = this.current.substring(0, (this.length - 1));
     },
     equal() {
-      if (this.current === "") return;
+
+      if (!this.current) return;
+      if(!this.verifyParenthesis()) return;
       this.shuntingYard(this.tokenize(this.current))
       this.previousEquation = this.current;
       this.previousResult = this.result.toFixed(2);
@@ -148,8 +190,7 @@ export default {
           }
           number += char;
           hasDot = true;
-        }
-        else {
+        } else {
           if (number !== "") {
             tokens.push(number);
             number = "";
@@ -285,7 +326,7 @@ export default {
 }
 
 .calculatorBack {
-  margin:  0;
+  margin: 0;
   padding: 20px 0 0 0;
 }
 
@@ -307,16 +348,16 @@ export default {
   margin-top: 5px;
 }
 
-.previousResult{
+.previousResult {
   word-break: break-word;
 }
 
-.currentDisplay{
+.currentDisplay {
   word-break: break-word;
 }
 
 .inputEntry {
-  background-color:darkgrey;
+  background-color: darkgrey;
   border: solid 1px black;
   outline: none;
   text-align: right;
@@ -345,6 +386,15 @@ button {
   box-shadow: rgba(28, 26, 26, 0.68) 2px 2px 2px 2px;
 }
 
+.operatorBtn {
+  background-color: #a5bda5;
+  box-shadow: none;
+  max-width: 56px;
+  border: #1c1a1a solid 3px;
+  margin: 10px;
+  width: 55px;
+  font-size: 15px;
+}
 
 .buttonClean {
   width: 70px;
@@ -362,7 +412,7 @@ button {
 
 
 .historyBlock {
- margin: 0;
+  margin: 0;
 
 }
 
@@ -373,7 +423,7 @@ button {
   max-width: 400px;
 }
 
-.historyValue{
+.historyValue {
   word-break: break-all;
 }
 
@@ -393,7 +443,7 @@ button {
   }
 
 
-  .inputEntry{
+  .inputEntry {
 
     max-width: 275px;
     font-size: 10px;
@@ -417,11 +467,11 @@ button {
     border: none;
   }
 
-  .historyBack{
+  .historyBack {
     scale: 1.4;
   }
 
-  .buttonClean{
+  .buttonClean {
     scale: 1.4;
   }
 
@@ -469,13 +519,13 @@ button {
     border: none;
   }
 
-  .historyBack{
+  .historyBack {
     width: 280px;
     max-width: 370px;
     padding: 15px 0 15px 0;
   }
 
-  .buttonClean{
+  .buttonClean {
 
     margin: 0 0 0 30px;
   }
@@ -526,8 +576,8 @@ button {
     border: none;
   }
 
-  .historyBack{
-    width:190px;
+  .historyBack {
+    width: 190px;
     max-width: 300px;
   }
 
