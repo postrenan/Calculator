@@ -13,7 +13,7 @@
           <div class="is-mobile is-centered column has-text-centered box backgroundButtons">
             <div class="column is-paddingless is-vcentered divColumns is-mobile is-centered ">
               <button class="button is-rounded is-danger is-outlined specialButton" @click="backspace"><-</button>
-              <button class="button is-rounded is-warning  is-outlined specialButton" @click="clear">CA</button>
+              <button class="button is-rounded is-warning  is-outlined specialButton" @click="clear">AC</button>
               <button class="button is-rounded  operatorBtn" @click="addOperator('²')">x²</button>
               <button class="button is-rounded  operatorBtn" @click="addOperator('%')">%</button>
             </div>
@@ -56,7 +56,7 @@
         <div class="columns is-mobile is-half  ">
           <div class="box historyBack">
             <button @click="cleanHist()" class="is-centered button  buttonClean">Limpar</button>
-            <p class="box historyValue" v-for=" x in history">{{ previousEquation + "=" + result }}</p>
+            <p class="box historyValue" v-for="x in history">{{ x }}</p>
           </div>
         </div>
       </div>
@@ -145,7 +145,6 @@ export default {
       if (this.current.includes("(") || this.current.includes(")")) {
         if (!this.verifyParenthesis(this.current)) return;
       }
-
       this.shuntingYard(this.tokenize(this.current))
       this.previousEquation = this.current;
       this.previousResult = this.result;
@@ -156,8 +155,10 @@ export default {
         this.previousResult = "";
         return;
       }
+      console.log(this.history)
       this.history.unshift(this.previousEquation + '=' + this.previousResult);
       this.current = "";
+      console.log(this.history);
     },
     tokenize(infix) {
       const tokens = [];
@@ -187,7 +188,7 @@ export default {
     },
     shuntingYard(current) {
       const operators = {"+": 1, "-": 1, "*": 1, "/": 1, "%": 1, 'π': 1, '²': 1, "!": 1};
-      const leftAssoc = {"*": 1, "/": 1, "%": 1, "+": 1, "-": 1, 'π': 1, '²': 1};
+      const leftAssoc = {"*": 1, "/": 1, "%": 1, "+": 1, "-": 1, 'π': 1, '²': 1,"!": 1};
       const rightAssoc = {"=": 1, "!": 1};
       const precedenceOf = {"!": 4, "*": 3, "/": 3, 'π': 3, '²': 3, "%": 3, "+": 2, "-": 2, "=": 1};
       let output = [];
@@ -276,9 +277,11 @@ export default {
           if (token === "π") result = parseFloat(operand2 * 3.14);
           if (token === "²") result = operand2 * operand2;
           if (token === "!") {
-            for(let i = 0; i< operand1; i++){
-
+            let a = 0;
+            for(let i = operand2 - 1; i > 0; i--){
+              a = (a === 0 ? operand2 : a  ) * i;
             }
+            result = a;
           }
           if (token === "%") result = parseFloat(operand2 / 100);
           stack.push(result);
@@ -319,7 +322,6 @@ export default {
   font-weight: bold;
 }
 
-
 .calculatorBack {
   margin: 0;
   padding: 20px 0 0 0;
@@ -330,13 +332,13 @@ export default {
 }
 
 .calculatorAll {
-  background-color: #00b2ff;
+  background-color: var(--primary-bg-color);
   padding: 3px;
   max-width: 400px;
 }
 
 .display {
-  background-color: #000000;
+  background-color: var(--primary-bg-color);
   color: white;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -347,12 +349,12 @@ export default {
 .previousResult {
   word-break: break-word;
   font-size: 20px;
-  color: gray;
+  color: var(--secondary-btn-color);
 }
 
 .inputEntry {
-  background-color: #0a0a0a;
-  border: #00b2ff solid 2px;
+  background-color: var(--secondary-bg-color);
+  border: var(--secondary-bg-color) solid 2px;
   outline: none;
   text-align: right;
   width: 100%;
