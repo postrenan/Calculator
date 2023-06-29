@@ -115,7 +115,6 @@ export default {
   width: 529px;
   border: #1c1a1a solid 3px;
   background-color: #44596BFF;
-  box-shadow: rgba(28, 26, 26, 0.68) 2px 15px 15px 10px;
 }
 
 .subtitleResultStyle {
@@ -126,7 +125,6 @@ export default {
   padding-top: 8px;
   padding-left: 10px;
   color: #ffffff;
-  box-shadow: rgba(28, 26, 26, 0.68) 5px 5px 5px;
 }
 
 .title {
@@ -141,8 +139,6 @@ p {
   max-width: 529px;
   border: #1c1a1a solid 3px;
   background-color: darkgrey;
-  box-shadow: rgba(28, 26, 26, 0.68) 2px 15px 15px 10px;
-
 }
 
 input {
@@ -152,7 +148,6 @@ input {
 button {
   margin: 5px;
   border: #1c1a1a solid 3px;
-  box-shadow: rgba(28, 26, 26, 0.68) 2px 2px 2px 2px;
 }
 
 .rightColumBtn{

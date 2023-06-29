@@ -11,8 +11,8 @@
         </div>
         <div class="is-mobile is-centered column has-text-centered box backgroundButtons">
           <div class="column is-paddingless is-vcentered divColumns is-mobile is-centered ">
-            <button class="button is-danger  specialButton" @click="backspace"><-</button>
-            <button class="button is-warning  specialButton" @click="clear">CA</button>
+            <button class="button is-danger is-outlined specialButton" @click="backspace"><-</button>
+            <button class="button is-warning  is-outlined specialButton" @click="clear">CA</button>
             <button class="button  operatorBtn" @click="addOperator('²')">x²</button>
             <button class="button  operatorBtn" @click="addOperator('%')">%</button>
 
@@ -45,7 +45,7 @@
             <router-link class="button  specialButton" to="/calculadora-juros-compostos">J.</router-link>
             <button class="button " @click="addNumber(0)">0</button>
             <button class="button  " @click="addOperator('.')">.</button>
-            <button class="button  specialButton" @click="equal">=</button>
+            <button class="button is-success is-outlined specialButton" @click="equal">=</button>
           </div>
         </div>
       </div>
@@ -70,7 +70,6 @@ export default {
       previousResult: "",
       current: "",
       result: 0,
-      length: "",
       history: [],
       theErrorMsg: "",
       msgError: false,
@@ -82,68 +81,49 @@ export default {
   },
   methods: {
     addNumber(num) {
+      const lastChar = this.current.slice(-1);
+      if(lastChar.includes("%")) this.current += "*";
+      if(lastChar.includes("π")) this.current += "*";
       this.current += num
     },
     addOperator(operator) {
       const isOperator = ["+", "-", "*", "/", "%", "!", "."];
+      const specOperators = ["²", "π"];
       const isParenthesis = "(";
+      const lastChar = this.current.slice(-1);
       if (!this.current) {
         this.theErrorMsg = "Não pode operador antes de numero";
-        this.msgError = true;
-        setTimeout(() => {
-          this.msgError = false;
-        }, 2000);
+        this.showAlert();
         return;
       }
-      const lastChar = this.current.slice(-1);
       if (isOperator.includes(lastChar) && isOperator.includes(operator)) {
         this.theErrorMsg = "Não é aceito mais de um operador por vez";
-        this.msgError = true;
-        setTimeout(() => {
-          this.msgError = false;
-        }, 2000);
+        this.showAlert();
         return;
       }
-      if(!isOperator.includes(lastChar)  && operator.includes(isParenthesis)) this.current += '*';
-
+      if(specOperators.includes(lastChar)) {
+        this.theErrorMsg = "Não é aceito mais de um operador por vez";
+        this.showAlert();
+        return;
+      }
+      if(!isOperator.includes(lastChar)  && operator.includes(isParenthesis)) this.current += "*";
       this.current = this.current + operator;
     },
-    verifyOperator() {
-      const isOperator = ['+', '-', '*', '/', '%', '!'];
-      if (this.current.includes(isOperator)) {
-        return true;
-      } else {
-        this.theErrorMsg = "Não é possivel conta sem operadores";
-        this.msgError = true;
-        setTimeout(() => {
-          this.msgError = false;
-        }, 2000);
-        return false;
-      }
-    },
     verifyParenthesis(value) {
-      if (value.includes( "(" )) {
-        let parenthesisOpenPos = value.indexOf('(')
-        let parenthesisClosePos = value.indexOf(')')
-        if (Math.abs(parenthesisOpenPos - parenthesisClosePos) === 1 || parenthesisClosePos === 0) {
-
+      let parOpenPos = value.indexOf('(')
+      let parClosePos = value.indexOf(')')
+      if ( value.includes("(") || value.includes(")") ) {
+        if (Math.abs(parOpenPos - parClosePos) === 1 || parClosePos === 0) {
           this.theErrorMsg = "Não é possivel conta com parenteses vazios";
-          this.msgError = true;
-          setTimeout(() => {
-            this.msgError = false;
-          }, 2000);
+          this.showAlert();
           return false;
         }
-      } else if (value.includes(")")) {
-
-        this.theErrorMsg = "Não é possivel conta com parenteses unico";
-        this.msgError = true;
-        setTimeout(() => {
-          this.msgError = false;
-        }, 2000);
-        return false;
-      } else {
-        return true;
+        if ((value.includes("(") && !value.includes(")")) || (value.includes(")") && !value.includes("("))) {
+          this.theErrorMsg = "Não é possivel conta com parenteses unico";
+          this.showAlert();
+          return false;
+        }
+        if(Math.abs(parOpenPos - parClosePos) > 1) return true;
       }
     },
     cleanHist() {
@@ -155,12 +135,13 @@ export default {
       this.previousResult = "";
     },
     backspace() {
-      this.length = this.current.length;
-      this.current = this.current.substring(0, (this.length - 1));
+      this.current = this.current.substring(0, (this.current.length - 1));
     },
     equal() {
       if (!this.current) return;
-      if(!this.verifyParenthesis(this.current)) return;
+      if(this.current.includes("(") || this.current.includes(")")) {
+        if(!this.verifyParenthesis(this.current)) return;
+      }
       this.shuntingYard(this.tokenize(this.current))
       this.previousEquation = this.current;
       this.previousResult = this.result;
@@ -182,10 +163,7 @@ export default {
         else if (char === '.') {
           if (hasDot) {
             this.theErrorMsg = `Não é aceito mais de um ponto`;
-            this.msgError = true;
-            setTimeout(() => {
-              this.msgError = false;
-            }, 2000);
+            this.showAlert();
             throw new Error("Invalid number format: More than one dot");
           }
           number += char;
@@ -245,11 +223,8 @@ export default {
           if (!foundLeftParen) throw new Error("Não foi possível encontrar o parenteses, verifique");
         } else {
           this.theErrorMsg = `Caractere desconhecido: ${ch}`;
-          this.msgError = true;
-          setTimeout(() => {
-            this.msgError = false;
-          }, 2000);
-          this.current = "";
+          this.showAlert();
+          return;
         }
       }
       while (stack.length > 0) {
@@ -278,10 +253,7 @@ export default {
           if (token === "/") {
             if (operand2 === 0) {
               this.theErrorMsg = "não é possivel divisão por 0"
-              this.msgError = true;
-              setTimeout(() => {
-                this.msgError = false;
-              }, 2000);
+              this.showAlert();
               this.current = "";
               return;
             } else {
@@ -290,7 +262,7 @@ export default {
           }
           if (token === "π") result = parseFloat(operand2 * 3.14);
           if (token === "²") result = operand2 * operand2;
-          if (token === "!") result = -operand1;
+          if (token === "!") result = -(operand1);
           if (token === "%") result = parseFloat(operand2 / 100);
           stack.push(result);
         }
@@ -312,8 +284,13 @@ export default {
     supportKeyListener(keyWord) {
       const keyCode = keyWord.keyCode;
       if (keyCode === 8) this.backspace();
-
-      if (keyCode === 13) this.equal()
+      if (keyCode === 13) this.msgError = true; this.equal();
+    },
+    showAlert(){
+      this.msgError = true;
+      setTimeout(() => {
+        this.msgError = false;
+      }, 2000);
     },
   },
 
@@ -332,13 +309,13 @@ export default {
 
 
 .calculatorAll {
-  background-color: #1c1a1a;
+  background-color: #0D0126;
   padding: 3px;
   max-width: 400px;
 }
 
 .display {
-  background-color: #cecbcb;
+  background-color:  #8D69BF;
   color: rgba(12, 11, 11, 0.9);
   margin-bottom: 2px;
   padding-bottom: 5px;
@@ -349,16 +326,17 @@ export default {
 
 .previousResult {
   word-break: break-word;
+  font-size: 20px;
 }
 
 .inputEntry {
   background-color: darkgrey;
-  border: solid 1px black;
+  border: none;
   outline: none;
   text-align: right;
   width: 100%;
-  font-size: 15px;
-  border-radius: 20px;
+  font-size: 20px;
+  border-radius: 5px;
   color: #1c1a1a;
   word-break: break-all;
 }
@@ -369,38 +347,43 @@ export default {
 }
 
 .backgroundButtons {
-  background-color: #44596b;
+  background-color: #351B59;
   max-width: 400px;
 }
 
 
 button {
+  background-color: #351B59;
+  color: white;
   margin: 10px;
-  border: #1c1a1a solid 3px;
+  border: none;
   width: 55px;
+  font-size: 20px;
 }
 
 .operatorBtn {
-  background-color: #a5bda5;
+  background-color:  #351B59;
   box-shadow: none;
   max-width: 56px;
-  border: #1c1a1a solid 3px;
   margin: 10px;
   width: 55px;
-  font-size: 15px;
+  font-size: 20px;
+  color: white;
 }
 
 .buttonClean {
   width: 70px;
-
+  font-size: 20px;
 }
 
 .specialButton {
+  background-color: #351B59;
+  color: white;
   max-width: 56px;
-  border: #1c1a1a solid 3px;
+  border: solid 1px;
   margin: 10px;
   width: 55px;
-  font-size: 15px;
+  font-size: 20px;
 }
 
 .historyBlock {
@@ -408,7 +391,7 @@ button {
 }
 
 .historyBack {
-  background-color: darkgrey;
+  background-color: #0D0126;
   width: 400px;
   max-width: 400px;
 }
@@ -450,6 +433,15 @@ button {
     max-width: 40px;
   }
 
+  .operatorBtn {
+    background-color:  #BFBFBF;
+    margin: 4px;
+    font-size: 10px;
+    border: none;
+    max-width: 40px;
+
+  }
+
   .specialButton {
     margin: 4px;
     font-size: 10px;
@@ -463,6 +455,7 @@ button {
 
   .buttonClean {
     scale: 1.4;
+    font-size: 10px;
   }
 
 }
@@ -509,6 +502,13 @@ button {
     border: none;
   }
 
+  .operatorBtn{
+    margin: 3px;
+    font-size: 8px;
+    width: 30px;
+    border: none;
+  }
+
   .historyBack {
     width: 280px;
     max-width: 370px;
@@ -541,6 +541,10 @@ button {
     padding: 0 0 -20px 2px;
   }
 
+  .previousResult {
+    font-size: 15px;
+  }
+
   .inputEntry {
     max-width: 180px;
   }
@@ -559,6 +563,13 @@ button {
     border: none;
   }
 
+  .operatorBtn{
+    margin: 3px;
+    font-size: 8px;
+    width: 20px;
+    border: none;
+  }
+
   .specialButton {
     margin: 3px;
     font-size: 8px;
@@ -568,6 +579,7 @@ button {
 
   .historyBack {
     width: 190px;
+    padding: 10px;
     max-width: 300px;
   }
 
