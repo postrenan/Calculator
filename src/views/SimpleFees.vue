@@ -113,8 +113,8 @@ export default {
 
 .calculatorBack {
   width: 529px;
-  border: #1c1a1a solid 3px;
-  background-color: #44596BFF;
+  border: #02638c solid 1px;
+  background-color: black;
 }
 
 .subtitleResultStyle {
@@ -127,6 +127,11 @@ export default {
   color: #ffffff;
 }
 
+input{
+  background-color: black;
+  color:white;
+}
+
 .title {
   color: #ffffff;
 }
@@ -137,17 +142,19 @@ p {
 
 .historyBack {
   max-width: 529px;
-  border: #1c1a1a solid 3px;
-  background-color: darkgrey;
+  border: #02638c solid 1px;
+  background-color: black;
 }
 
 input {
-  border: #1c1a1a solid 3px;
+  border: #02638c solid 1px;
 }
 
 button {
   margin: 5px;
-  border: #1c1a1a solid 3px;
+  border: #02638c solid 1px;
+  background-color: black;
+  color: white;
 }
 
 .rightColumBtn{
@@ -156,8 +163,9 @@ button {
 }
 
 .boxHistory {
-  border: #1c1a1a solid 3px;
-  color: black;
+  border: #02638c solid 1px;
+  color: white;
+  background-color: black;
 }
 
 </style>

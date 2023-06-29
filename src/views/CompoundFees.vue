@@ -127,23 +127,27 @@ p {
 }
 
 .calculatorBack {
-  border: #1c1a1a solid 3px;
-  background-color: #44596BFF;
+  border: #02638c solid 1px;
+  background-color: black;
 }
 
 .historyBack {
-  border: #1c1a1a solid 3px;
-  background-color: darkgrey;
+  border: #02638c solid 1px;
+  background-color: black;
   max-width: 529px;
 }
 
-input {
-  border: #1c1a1a solid 3px;
+input{
+  border: #02638c solid 1px;
+  background-color: black;
+  color:white;
 }
 
 button {
+  background-color: black;
   margin: 5px;
-  border: #1c1a1a solid 3px;
+  border: #02638c solid 1px;
+  color:white;
 }
 
 .rightColumBtn {
@@ -152,8 +156,9 @@ button {
 }
 
 .boxHistory {
-  border: #1c1a1a solid 3px;
-  color: black;
+  border: #02638c solid 1px;
+  color: white;
+  background-color: black;
 }
 
 </style>

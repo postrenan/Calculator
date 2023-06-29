@@ -1,60 +1,63 @@
 <template>
-  <div class="allContent">
-    <div class="section columns is-mobile is-centered calculatorBack">
-      <div class="is-mobile is-half is-centered column box calculatorAll">
-        <div class="column box has-text-right is-rounded display">
-          <p v-if="msgError">{{ theErrorMsg }}</p>
-          <div v-if="!msgError">
-            <p class="previousResult">{{ previousResult }}</p>
+  <div class="columns allContent">
+    <div class="column ">
+      <div class="section columns is-mobile is-centered calculatorBack">
+        <div class="is-mobile is-half is-centered column box calculatorAll">
+          <div class="column box has-text-right is-rounded display">
+            <p v-if="msgError">{{ theErrorMsg }}</p>
+            <div v-if="!msgError">
+              <p class="previousResult">{{ previousResult }}</p>
+            </div>
+            <input v-model="current" :disabled="true" type="text" class="inputEntry">
           </div>
-          <input v-model="current" :disabled="true" type="text" class="inputEntry">
-        </div>
-        <div class="is-mobile is-centered column has-text-centered box backgroundButtons">
-          <div class="column is-paddingless is-vcentered divColumns is-mobile is-centered ">
-            <button class="button is-danger is-outlined specialButton" @click="backspace"><-</button>
-            <button class="button is-warning  is-outlined specialButton" @click="clear">CA</button>
-            <button class="button  operatorBtn" @click="addOperator('²')">x²</button>
-            <button class="button  operatorBtn" @click="addOperator('%')">%</button>
-
-          </div>
-          <div class="column is-paddingless divColumns is-mobile is-centered">
-            <button class="button  operatorBtn" @click="addOperator('π')">π</button>
-            <button class="button  operatorBtn" @click="addOperator('(')">(</button>
-            <button class="button  operatorBtn" @click="addOperator(')')">)</button>
-            <button class="button  operatorBtn" @click="addOperator('*')">*</button>
-          </div>
-          <div class="column is-paddingless divColumns is-mobile is-centered">
-            <button class="button " @click="addNumber(7)">7</button>
-            <button class="button " @click="addNumber(8)"> 8</button>
-            <button class="button " @click="addNumber(9)"> 9</button>
-            <button class="button  operatorBtn" @click="addOperator('/')">/</button>
-          </div>
-          <div class="column is-paddingless divColumns is-mobile is-centered">
-            <button class="button " @click="addNumber(4)">4</button>
-            <button class="button " @click="addNumber(5)">5</button>
-            <button class="button " @click="addNumber(6)">6</button>
-            <button class="button  operatorBtn" @click="addOperator('-')">-</button>
-          </div>
-          <div class="column is-paddingless divColumns is-mobile is-centered">
-            <button class="button " @click="addNumber(1)">1</button>
-            <button class="button " @click="addNumber(2)">2</button>
-            <button class="button " @click="addNumber(3)">3</button>
-            <button class="button  operatorBtn" @click="addOperator('+')">+</button>
-          </div>
-          <div class="column is-paddingless divColumns is-mobile is-centered">
-            <router-link class="button  specialButton" to="/calculadora-juros-compostos">J.</router-link>
-            <button class="button " @click="addNumber(0)">0</button>
-            <button class="button  " @click="addOperator('.')">.</button>
-            <button class="button is-success is-outlined specialButton" @click="equal">=</button>
+          <div class="is-mobile is-centered column has-text-centered box backgroundButtons">
+            <div class="column is-paddingless is-vcentered divColumns is-mobile is-centered ">
+              <button class="button is-rounded is-danger is-outlined specialButton" @click="backspace"><-</button>
+              <button class="button is-rounded is-warning  is-outlined specialButton" @click="clear">CA</button>
+              <button class="button is-rounded  operatorBtn" @click="addOperator('²')">x²</button>
+              <button class="button is-rounded  operatorBtn" @click="addOperator('%')">%</button>
+            </div>
+            <div class="column is-paddingless divColumns is-mobile is-centered">
+              <button class="button is-rounded operatorBtn" @click="addOperator('π')">π</button>
+              <button class="button is-rounded operatorBtn" @click="addOperator('(')">(</button>
+              <button class="button is-rounded operatorBtn" @click="addOperator(')')">)</button>
+              <button class="button is-rounded operatorBtn" @click="addOperator('*')">*</button>
+            </div>
+            <div class="column is-paddingless divColumns is-mobile is-centered">
+              <button class="button is-rounded " @click="addNumber(7)">7</button>
+              <button class="button is-rounded " @click="addNumber(8)"> 8</button>
+              <button class="button is-rounded " @click="addNumber(9)"> 9</button>
+              <button class="button  is-rounded operatorBtn" @click="addOperator('/')">/</button>
+            </div>
+            <div class="column is-paddingless divColumns is-mobile is-centered">
+              <button class="button is-rounded" @click="addNumber(4)">4</button>
+              <button class="button is-rounded" @click="addNumber(5)">5</button>
+              <button class="button is-rounded" @click="addNumber(6)">6</button>
+              <button class="button is-rounded operatorBtn" @click="addOperator('-')">-</button>
+            </div>
+            <div class="column is-paddingless divColumns is-mobile is-centered">
+              <button class="button is-rounded" @click="addNumber(1)">1</button>
+              <button class="button is-rounded" @click="addNumber(2)">2</button>
+              <button class="button is-rounded" @click="addNumber(3)">3</button>
+              <button class="button is-rounded operatorBtn" @click="addOperator('+')">+</button>
+            </div>
+            <div class="column is-paddingless divColumns is-mobile is-centered">
+              <router-link class="button is-rounded specialButton" to="/calculadora-juros-compostos">J.</router-link>
+              <button class="button is-rounded" @click="addNumber(0)">0</button>
+              <button class="button  is-rounded" @click="addOperator('.')">.</button>
+              <button class="button is-rounded is-success is-outlined specialButton" @click="equal">=</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="section columns is-mobile  is-centered historyBlock">
-      <div class="columns is-mobile is-half  ">
-        <div class="box historyBack">
-          <p class="box historyValue" v-for=" x in history">{{ previousEquation + "=" + result }}</p>
-          <button @click="cleanHist()" class="is-centered button  buttonClean">Limpar</button>
+    <div class="column is-desktop is-laptop">
+      <div class="section columns is-mobile  is-centered historyBlock">
+        <div class="columns is-mobile is-half  ">
+          <div class="box historyBack">
+            <button @click="cleanHist()" class="is-centered button  buttonClean">Limpar</button>
+            <p class="box historyValue" v-for=" x in history">{{ previousEquation + "=" + result }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -82,8 +85,8 @@ export default {
   methods: {
     addNumber(num) {
       const lastChar = this.current.slice(-1);
-      if(lastChar.includes("%")) this.current += "*";
-      if(lastChar.includes("π")) this.current += "*";
+      if (lastChar.includes("%")) this.current += "*";
+      if (lastChar.includes("π")) this.current += "*";
       this.current += num
     },
     addOperator(operator) {
@@ -101,18 +104,18 @@ export default {
         this.showAlert();
         return;
       }
-      if(specOperators.includes(lastChar)) {
+      if (specOperators.includes(lastChar)) {
         this.theErrorMsg = "Não é aceito mais de um operador por vez";
         this.showAlert();
         return;
       }
-      if(!isOperator.includes(lastChar)  && operator.includes(isParenthesis)) this.current += "*";
+      if (!isOperator.includes(lastChar) && operator.includes(isParenthesis)) this.current += "*";
       this.current = this.current + operator;
     },
     verifyParenthesis(value) {
       let parOpenPos = value.indexOf('(')
       let parClosePos = value.indexOf(')')
-      if ( value.includes("(") || value.includes(")") ) {
+      if (value.includes("(") || value.includes(")")) {
         if (Math.abs(parOpenPos - parClosePos) === 1 || parClosePos === 0) {
           this.theErrorMsg = "Não é possivel conta com parenteses vazios";
           this.showAlert();
@@ -123,7 +126,7 @@ export default {
           this.showAlert();
           return false;
         }
-        if(Math.abs(parOpenPos - parClosePos) > 1) return true;
+        if (Math.abs(parOpenPos - parClosePos) > 1) return true;
       }
     },
     cleanHist() {
@@ -139,14 +142,16 @@ export default {
     },
     equal() {
       if (!this.current) return;
-      if(this.current.includes("(") || this.current.includes(")")) {
-        if(!this.verifyParenthesis(this.current)) return;
+      if (this.current.includes("(") || this.current.includes(")")) {
+        if (!this.verifyParenthesis(this.current)) return;
       }
+
       this.shuntingYard(this.tokenize(this.current))
       this.previousEquation = this.current;
       this.previousResult = this.result;
       if (isNaN(this.result)) {
-        this.previousResult = "Não foi possivel calcular"
+        this.theErrorMsg = "Não foi possivel calcular"
+        this.showAlert()
         this.previousEquation = "";
         this.previousResult = "";
         return;
@@ -181,7 +186,7 @@ export default {
       return tokens;
     },
     shuntingYard(current) {
-      const operators = {"+": 1, "-": 1, "*": 1, "/": 1, "%": 1, 'π': 1, '²': 1};
+      const operators = {"+": 1, "-": 1, "*": 1, "/": 1, "%": 1, 'π': 1, '²': 1, "!": 1};
       const leftAssoc = {"*": 1, "/": 1, "%": 1, "+": 1, "-": 1, 'π': 1, '²': 1};
       const rightAssoc = {"=": 1, "!": 1};
       const precedenceOf = {"!": 4, "*": 3, "/": 3, 'π': 3, '²': 3, "%": 3, "+": 2, "-": 2, "=": 1};
@@ -220,7 +225,11 @@ export default {
               output.push(c);
             }
           }
-          if (!foundLeftParen) throw new Error("Não foi possível encontrar o parenteses, verifique");
+          if (!foundLeftParen) {
+            this.theErrorMsg = "Não foi possível encontrar o parenteses, verifique";
+            this.showAlert();
+            throw new Error("Não foi possível encontrar o parenteses, verifique");
+          }
         } else {
           this.theErrorMsg = `Caractere desconhecido: ${ch}`;
           this.showAlert();
@@ -229,7 +238,11 @@ export default {
       }
       while (stack.length > 0) {
         const c = stack.pop();
-        if (c === "(" || c === ")") throw new Error("Não foi possível encontrar o parenteses, verifique");
+        if (c === "(" || c === ")") {
+          this.theErrorMsg = "Não foi possível encontrar o parenteses, verifique";
+          this.showAlert();
+          throw new Error("Não foi possível encontrar o parenteses, verifique");
+        }
         output.push(c);
       }
       this.processOutput(output);
@@ -262,7 +275,11 @@ export default {
           }
           if (token === "π") result = parseFloat(operand2 * 3.14);
           if (token === "²") result = operand2 * operand2;
-          if (token === "!") result = -(operand1);
+          if (token === "!") {
+            for(let i = 0; i< operand1; i++){
+
+            }
+          }
           if (token === "%") result = parseFloat(operand2 / 100);
           stack.push(result);
         }
@@ -284,9 +301,9 @@ export default {
     supportKeyListener(keyWord) {
       const keyCode = keyWord.keyCode;
       if (keyCode === 8) this.backspace();
-      if (keyCode === 13) this.msgError = true; this.equal();
+      if (keyCode === 13) this.equal();
     },
-    showAlert(){
+    showAlert() {
       this.msgError = true;
       setTimeout(() => {
         this.msgError = false;
@@ -302,42 +319,46 @@ export default {
   font-weight: bold;
 }
 
+
 .calculatorBack {
   margin: 0;
   padding: 20px 0 0 0;
 }
 
+.allContent{
+  margin: 0 0 0 0;
+}
 
 .calculatorAll {
-  background-color: #0D0126;
+  background-color: #00b2ff;
   padding: 3px;
   max-width: 400px;
 }
 
 .display {
-  background-color:  #8D69BF;
-  color: rgba(12, 11, 11, 0.9);
-  margin-bottom: 2px;
+  background-color: #000000;
+  color: white;
   padding-bottom: 5px;
   padding-left: 5px;
   min-height: 89px;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 
 .previousResult {
   word-break: break-word;
   font-size: 20px;
+  color: gray;
 }
 
 .inputEntry {
-  background-color: darkgrey;
-  border: none;
+  background-color: #0a0a0a;
+  border: #00b2ff solid 2px;
   outline: none;
   text-align: right;
   width: 100%;
   font-size: 20px;
   border-radius: 5px;
-  color: #1c1a1a;
+  color: white;
   word-break: break-all;
 }
 
@@ -347,24 +368,27 @@ export default {
 }
 
 .backgroundButtons {
-  background-color: #351B59;
+  background-color: #000000;
   max-width: 400px;
+  padding-top: 15px;
+  margin-top: -20px;
 }
 
 
 button {
-  background-color: #351B59;
+  background-color: #000000;
   color: white;
   margin: 10px;
-  border: none;
+  border: #02638c solid 2px;
   width: 55px;
   font-size: 20px;
 }
 
 .operatorBtn {
-  background-color:  #351B59;
+  background-color: #08040c;
   box-shadow: none;
   max-width: 56px;
+  border: #02638c solid 2px;
   margin: 10px;
   width: 55px;
   font-size: 20px;
@@ -372,15 +396,17 @@ button {
 }
 
 .buttonClean {
-  width: 70px;
+  padding: 10px;
+  margin: 0 0 10px 0;
+  width: auto;
   font-size: 20px;
 }
 
 .specialButton {
-  background-color: #351B59;
+  background-color: #000000;
   color: white;
   max-width: 56px;
-  border: solid 1px;
+  border: solid 2px;
   margin: 10px;
   width: 55px;
   font-size: 20px;
@@ -391,16 +417,23 @@ button {
 }
 
 .historyBack {
-  background-color: #0D0126;
+  background-color: #000000;
+  border: #00b2ff solid 2px;
   width: 400px;
   max-width: 400px;
+  height: auto;
+  max-height: 583px;
+  overflow: auto;
 }
 
 .historyValue {
   word-break: break-all;
+  background-color: black;
+  color: white;
+  border: #02638c solid 2px;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 1400px) {
   .calculatorBack {
     margin: 0;
     padding: 0;
@@ -412,12 +445,14 @@ button {
     padding: 2px;
     font-size: 10px;
     max-width: 300px;
-    margin-bottom: 280px;
+    margin-bottom: 120px;
   }
 
+.previousResult{
+  font-size: 10px;
+}
 
   .inputEntry {
-
     max-width: 275px;
     font-size: 10px;
   }
@@ -429,15 +464,15 @@ button {
   button {
     margin: 4px;
     font-size: 10px;
-    border: none;
+    border: #02638c solid 1px;
     max-width: 40px;
   }
 
   .operatorBtn {
-    background-color: #351B59;
+    background-color: black;
     margin: 4px;
     font-size: 10px;
-    border: none;
+    border: #02638c solid 1px;
     max-width: 40px;
 
   }
@@ -449,13 +484,18 @@ button {
     border: solid 1px;
   }
 
+  .historyBlock{
+    margin-top: 40px;
+  }
+
   .historyBack {
-    scale: 1.4;
+    max-height: 180px;
   }
 
   .buttonClean {
     scale: 1.4;
     font-size: 10px;
+    margin: 0 0 25px 10px;
   }
 
 }
@@ -465,7 +505,7 @@ button {
   .calculatorAll {
     scale: 1.8;
     margin-top: 300px;
-    padding: 2px;
+    padding: 1px;
     font-size: 10px;
   }
 
@@ -483,6 +523,7 @@ button {
 
   .inputEntry {
     max-width: 200px;
+    border: #02638c solid 1px;
   }
 
   .divColumns {
@@ -492,43 +533,45 @@ button {
   button {
     width: 30px;
     font-size: 8px;
-    border: none;
+    border: #02638c solid 1px;
   }
 
   .specialButton {
     margin: 3px;
     font-size: 8px;
     width: 30px;
-    border: solid 1px;
+    border: #02638c solid 1px;
   }
 
-  .operatorBtn{
-    background-color: #351B59;
+  .operatorBtn {
+    background-color: black;
     margin: 3px;
     font-size: 8px;
     width: 30px;
-    border: none;
+    border: #02638c solid 1px;
   }
 
   .historyBack {
+    scale: 1.3;
     width: 280px;
     max-width: 370px;
-    padding: 15px 0 15px 0;
+    padding: 10px 5px 15px 5px;
+
   }
 
   .buttonClean {
-
-    margin: 0 0 0 30px;
+    font-size: 8px;
+    border: #02638c solid 1px;
+    margin: 0 0 25px 25px;
   }
 
 }
 
 @media only screen and (max-width: 393px) {
-
   .calculatorAll {
     scale: 1.8;
-    margin-top: 300px;
-    padding: 2px;
+    margin-top: 130px;
+    padding: 1px;
     font-size: 10px;
   }
 
@@ -538,12 +581,13 @@ button {
   }
 
   .display {
-    max-width: 360px;
+    max-height: 120px;
     padding: 0 0 -20px 2px;
+    margin: 0;
   }
 
   .previousResult {
-    font-size: 15px;
+    font-size: 10px;
   }
 
   .inputEntry {
@@ -551,7 +595,7 @@ button {
   }
 
   .backgroundButtons {
-    padding: 0;
+    padding: 5px;
   }
 
   .divColumns {
@@ -561,15 +605,15 @@ button {
   button {
     width: 20px;
     font-size: 8px;
-    border: none;
+    border: #02638c solid 1px;
   }
 
-  .operatorBtn{
-    background-color: #351B59;
+  .operatorBtn {
+    background-color: black;
     margin: 3px;
     font-size: 8px;
     width: 20px;
-    border: none;
+    border: #02638c solid 1px;
   }
 
   .specialButton {
@@ -579,10 +623,19 @@ button {
     border: solid 1px;
   }
 
+  .historyAll{
+    max-width: 720px;
+  }
+
+  .historyBlock {
+    margin: 0;
+  }
+
   .historyBack {
     width: 190px;
     padding: 10px;
     max-width: 300px;
+    font-size: 10px
   }
 
 }
