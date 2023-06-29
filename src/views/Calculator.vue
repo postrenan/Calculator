@@ -434,7 +434,7 @@ button {
   }
 
   .operatorBtn {
-    background-color:  #BFBFBF;
+    background-color: #351B59;
     margin: 4px;
     font-size: 10px;
     border: none;
@@ -446,7 +446,7 @@ button {
     margin: 4px;
     font-size: 10px;
     max-width: 40px;
-    border: none;
+    border: solid 1px;
   }
 
   .historyBack {
@@ -499,10 +499,11 @@ button {
     margin: 3px;
     font-size: 8px;
     width: 30px;
-    border: none;
+    border: solid 1px;
   }
 
   .operatorBtn{
+    background-color: #351B59;
     margin: 3px;
     font-size: 8px;
     width: 30px;
@@ -564,6 +565,7 @@ button {
   }
 
   .operatorBtn{
+    background-color: #351B59;
     margin: 3px;
     font-size: 8px;
     width: 20px;
@@ -574,7 +576,7 @@ button {
     margin: 3px;
     font-size: 8px;
     width: 20px;
-    border: none;
+    border: solid 1px;
   }
 
   .historyBack {
