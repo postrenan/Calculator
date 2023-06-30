@@ -6,11 +6,11 @@
           <div class="is-paddingless">
             <h2 class="title">Calculadora de juros compostos</h2>
             <p>Valor inicial(capital)</p>
-            <input v-model="initialValue" @keydown="keyListener" id="input1" class="input is-rounded" type="number" min="0">
+            <input v-model="initialValue" autofocus  id="input1" class="input is-rounded" type="number" min="0">
             <p>Taxa de juros a.a</p>
             <input v-model="interestRate" id="input2" class="input is-rounded" type="number" min="0" max="100">
-            <p>Tempo de rendimento (anos)</p>
-            <input v-model="incomeTime" id="input3" class="input is-rounded" type="number" min="0" max="100">
+            <p>Tempo de rendimento (a.a)</p>
+            <input v-model="incomeTime" id="input3" @keydown.enter="feesEquation" class="input is-rounded" type="number" min="0" max="100">
             <h1 v-if="msgError === ''" class="subtitle subtitleResultStyle">Resultado: R$ {{ feesResult }}</h1>
             <h1 v-else class="subtitle subtitleResultStyle">{{ msgError }}</h1>
           </div>
@@ -18,7 +18,7 @@
             <div class="column has-text-left">
               <button @click="feesEquation" class="button is-rounded">Calcular</button>
               <button @click="clearInputs" class="button is-rounded">CA</button>
-              <button @click="turnFees" class="button is-rounded ">J.S</button>
+              <button @click="turnFees" class="button is-rounded ">Juros S.</button>
             </div>
             <div class="column has-text-right rightColumBtn">
               <button @click="closeFees" class="button is-rounded is-danger buttonClose ">X</button>
@@ -93,25 +93,21 @@ export default {
     turnFees() {
       this.$router.push('/calculadora-juros-simples');
     },
-    keyListener(keyWord) {
-      const keyCode = keyWord.keyCode;
-      const numberKeys = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57];
-      if (numberKeys.includes(keyCode) && this.initialValue === "") {
-        document.getElementById("input1").focus();
-      }
-      if (keyCode === 9 && this.initialValue !== "") {
-        document.getElementById("input2").focus();
-      }
-      if (keyCode === 9 && this.initialValue !== "" && this.interestRate !== "") {
-        document.getElementById("input2").focus();
-      }
-    },
+
   },
 
 }
 </script>
 
 <style scoped>
+
+.calculatorBack {
+  width: 529px;
+  border: white solid 2px;
+  background-color: #D9AFD9;
+  background-image: linear-gradient(180deg, #D9AFD9 0%, #97D9E1 100%);
+}
+
 .subtitleResultStyle {
   margin: 10px 0 10px 0;
   min-height: 40px;
@@ -119,52 +115,55 @@ export default {
   text-align: left;
   padding-top: 8px;
   padding-left: 10px;
-  color: #ffffff;
+  color: #000000;
+  font-weight: bold;
+}
+
+input{
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: bold;
 }
 
 .title {
-  color: #ffffff;
+  color: #050505;
 }
 
 p {
-  color: #ffffff;
-}
-
-.calculatorBack {
-  border: #000000FF solid 1px;
-  background-color: #00b2ff;
+  color: #000000;
+  font-weight: bold;
 }
 
 
-input{
-  border: #000000FF solid 1px;
-  background-color: #979797;
-  color:white;
+input {
+  border: #000000 solid 1px;
 }
 
 button {
-  background-color: white;
   margin: 5px;
-  border: #000000FF solid 1px;
-  color:black;
+  border: #000000 solid 1px;
+  background-color: white;
+  color: black;
+  font-weight: bold;
 }
 
-.rightColumBtn {
+.rightColumBtn{
   max-width: 80px;
   padding: 12px 12px 0 0;
 }
 
-
 .historyBack {
-  border: #000000FF solid 1px;
-  background-color: #979797;
   max-width: 529px;
+  border: white solid 1px;
+  background-color: #D9AFD9;
+  background-image: linear-gradient(0deg, #D9AFD9 45%, #97D9E1 74%);
 }
+
 
 .boxHistory {
-  border: #00b2ff solid 1px;
-  color: white;
-  background-color: #000000FF;
+  border: black solid 1px;
+  color: black;
+  background-color: white;
+  font-weight: bold;
 }
-
 </style>

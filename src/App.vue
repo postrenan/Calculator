@@ -17,8 +17,8 @@ export default defineComponent({
 <style>
 
 body{
-  background: #000000;
+  background: rgba(140, 119, 119, 0.96);
   height: auto;
-  min-height: 100vh;
+  min-height: 110vh;
 }
 </style>
