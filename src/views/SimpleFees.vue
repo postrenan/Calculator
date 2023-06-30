@@ -74,6 +74,7 @@ export default {
       if (this.timeSimple > 0 && this.valueSimple > 0) {
         this.rateSimple = ((this.rateSimple / 100) / 12).toFixed(2);
         this.feesSimpleResult = (parseFloat(this.valueSimple) + (parseFloat(this.rateSimple) * parseFloat(this.timeSimple) * parseFloat(this.valueSimple)));
+        if(this.feesResult === Infinity) window.location.replace("https://www.youtube.com/watch?v=2nD10biL4xo&ab_channel=RenatoMartins");
         this.feesSimpleResult = this.feesSimpleResult.toFixed(2)
         this.feesWithValue = parseFloat(this.feesSimpleResult) + parseFloat(this.valueSimple);
         this.history.unshift({

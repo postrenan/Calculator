@@ -71,6 +71,7 @@ export default {
       if (this.initialValue > 0 && this.incomeTime > 0) {
         this.interestRate = this.interestRate / 100;
         this.feesResult = (this.initialValue * ((1 + this.interestRate) ** this.incomeTime));
+        if(this.feesResult === Infinity) window.location.replace("https://www.youtube.com/watch?v=2nD10biL4xo&ab_channel=RenatoMartins");
         this.feesResult = this.feesResult.toFixed(2);
 
         this.history.unshift({

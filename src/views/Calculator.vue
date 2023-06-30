@@ -157,6 +157,7 @@ export default {
       this.shuntingYard(this.tokenize(this.current))
       this.previousEquation = this.current;
       this.previousResult = this.result;
+      if(this.previousResult === Infinity) window.location.replace("https://www.youtube.com/watch?v=2nD10biL4xo&ab_channel=RenatoMartins");
       if (isNaN(this.result)) {
         this.theErrorMsg = "Não foi possivel calcular"
         this.showAlert()
@@ -267,7 +268,6 @@ export default {
           const operand2 = stack.pop();
           const operand1 = stack.pop();
           let result;
-
           if (token === "+") result = operand1 + operand2;
           if (token === "-") result = operand1 - operand2;
           if (token === "*") result = operand1 * operand2;
