@@ -145,10 +145,14 @@ export default {
     backspace() {
       this.current = this.current.substring(0, (this.current.length - 1));
     },
+    operatorVerify(){
+      const operators = ["+", "-", "*", "/", "%", "!", "."];
+      return operators.some((operator) => this.current.includes(operator))
+    },
     equal() {
       if (!this.current) return;
-      if (this.current.includes("(") || this.current.includes(")")) {
-        if (!this.verifyParenthesis(this.current)) return;
+      if(!this.operatorVerify()) return;
+      if (this.current.includes("(") || this.current.includes(")")) {if (!this.verifyParenthesis(this.current)) return;
       }
       this.shuntingYard(this.tokenize(this.current))
       this.previousEquation = this.current;
