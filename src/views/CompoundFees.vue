@@ -101,11 +101,11 @@ export default {
 
 <style scoped>
 
+
 .calculatorBack {
   width: 529px;
   border: white solid 2px;
-  background-color: #D9AFD9;
-  background-image: linear-gradient(180deg, #D9AFD9 0%, #97D9E1 100%);
+  background-color: black;
 }
 
 .subtitleResultStyle {
@@ -115,28 +115,24 @@ export default {
   text-align: left;
   padding-top: 8px;
   padding-left: 10px;
-  color: #000000;
+  color: white;
   font-weight: bold;
 }
 
 input{
-  background-color: #ffffff;
-  color: #000000;
+  background-color: black;
+  border: white solid 2px;
+  color: white;
   font-weight: bold;
 }
 
 .title {
-  color: #050505;
+  color: white;
 }
 
 p {
-  color: #000000;
+  color: white;
   font-weight: bold;
-}
-
-
-input {
-  border: #000000 solid 1px;
 }
 
 button {
@@ -155,8 +151,7 @@ button {
 .historyBack {
   max-width: 529px;
   border: white solid 1px;
-  background-color: #D9AFD9;
-  background-image: linear-gradient(0deg, #D9AFD9 45%, #97D9E1 74%);
+  background-color: black;
 }
 
 
@@ -166,4 +161,5 @@ button {
   background-color: white;
   font-weight: bold;
 }
+
 </style>

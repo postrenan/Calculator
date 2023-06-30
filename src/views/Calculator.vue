@@ -56,7 +56,7 @@
         <div class="columns is-mobile is-half  ">
 
           <div class="box historyBack has-text-centered">
-            <h1 class="title ">Histórico</h1>
+            <h1 class="title has-text-light">Histórico</h1>
             <div>
               <button @click="cleanHist()" class="is-centered button  buttonClean">Limpar</button>
               <p class="box historyValue" v-for="x in history">{{ x }}</p>
@@ -164,10 +164,8 @@ export default {
         this.previousResult = "";
         return;
       }
-      console.log(this.history)
       this.history.unshift(this.previousEquation + '=' + this.previousResult);
       this.current = "";
-      console.log(this.history);
     },
     tokenize(infix) {
       const tokens = [];
@@ -342,16 +340,17 @@ export default {
   padding-top: 50px;
 }
 
+
+
 .calculatorAll {
-  background-color: rgba(175, 240, 248, 0.91);
+  background-color: #2c2a2a;
   border: white solid 2px;
   padding: 1px;
   max-width: 400px;
 }
 
 .display {
-  background-color: #D9AFD9;
-  background-image: linear-gradient(180deg, #D9AFD9 0%, #97D9E1 100%);
+  background-color: black;
   color: black;
   padding-bottom: 5px;
   padding-left: 5px;
@@ -362,18 +361,17 @@ export default {
 .previousResult {
   word-break: break-word;
   font-size: 20px;
-  color: black;
+  color: white;
 }
 
 .inputEntry {
-  background-color: rgba(217, 175, 217, 0.49);
-  border: black solid 1px;
+  border: black solid  0;
   outline: none;
   text-align: right;
   width: 100%;
   font-size: 20px;
   border-radius: 5px;
-  color: black;
+  color: white;
   word-break: break-all;
 }
 
@@ -383,7 +381,7 @@ export default {
 }
 
 .backgroundButtons {
-  background-color: white;
+  background-color: black;
   max-width: 400px;
   padding-top: 15px;
   margin-top: -20px;
@@ -394,7 +392,7 @@ button {
   background-color: #e1e1e1;
   color: #000000;
   margin: 10px;
-  border: #000000 solid 2px;
+  border: white solid 2px;
   width: 55px;
   font-size: 20px;
 }
@@ -403,7 +401,7 @@ button {
   background-color: #e1e1e1;
   box-shadow: none;
   max-width: 56px;
-  border: #000000 solid 2px;
+  border: white solid 2px;
   margin: 10px;
   width: 55px;
   font-size: 20px;
@@ -422,10 +420,10 @@ button {
 .specialButton {
   background-color: #e1e1e1;
   color: black;
-  max-width: 56px;
+  max-width: 70px;
   border: solid 2px;
   margin: 10px;
-  width: 55px;
+
   font-size: 20px;
 }
 
@@ -435,8 +433,7 @@ button {
 }
 
 .historyBack {
-  background-color: #D9AFD9;
-  background-image: linear-gradient(180deg, #D9AFD9 45%, #97D9E1 74%);
+  background-color: black;
   border: white solid 2px;
   width: 400px;
   max-width: 400px;
