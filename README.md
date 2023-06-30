@@ -1,4 +1,5 @@
-Caculadora simples e de juros compostos
+Caculador basica e de juros simples e compostos
+
 
 Esse projeto foi desenvolvido por meio de um desafio proposto por um amigo.
 No enunciado do projeto foi dada uma breve descrição do que era necessário:
@@ -6,6 +7,8 @@ No enunciado do projeto foi dada uma breve descrição do que era necessário:
   Histórico de calculos
   Design e usuabilidade 
   Calculo de juros composto 
+
+Link da calculadora no ar: https://calculadora-renan.netlify.app/
 
 Criei o projeto na linguagem Vue e estilizei com a biblioteca Bulma, lógica feita em js.
 
@@ -18,11 +21,6 @@ Para rodar o projeto
 git clone >> cd Calculator >> npm install >> npm run dev 
 
 Imagens do projeto: 
-![image](https://github.com/postrenan/Calculator/assets/76953726/661c8986-62f2-4c92-85f3-eefd78d03225)
-
-![image](https://github.com/postrenan/Calculator/assets/76953726/a3b278e9-40b8-4f2d-b9bd-c2b955f211a5)
-
-![image](https://github.com/postrenan/Calculator/assets/76953726/05fa5de7-9cad-4364-9031-da045c403937)
-
-![image](https://github.com/postrenan/Calculator/assets/76953726/6322b54f-59f3-48f8-87ee-872d2254d7b1)
-
+![image](https://github.com/postrenan/Calculator/assets/76953726/f04bb684-c862-4aae-b9bd-96e9894d6b0a)
+![image](https://github.com/postrenan/Calculator/assets/76953726/a4089495-bf22-43aa-8293-a8ccb8718997)
+![image](https://github.com/postrenan/Calculator/assets/76953726/fbbb4760-c744-4f8a-8456-54045b000c90)
