@@ -54,6 +54,10 @@ export default {
       msgError: '',
     }
   },
+  mounted() {
+    document.addEventListener('keypress', this.keyListener);
+    document.addEventListener('keydown', this.supportKeyListener);
+  },
   methods: {
     cleanHist() {
       this.history = [];
@@ -113,8 +117,8 @@ export default {
 
 .calculatorBack {
   width: 529px;
-  border: #02638c solid 1px;
-  background-color: black;
+  border: black solid 1px;
+  background-color: #00b2ff;
 }
 
 .subtitleResultStyle {
@@ -128,7 +132,7 @@ export default {
 }
 
 input{
-  background-color: black;
+  background-color: #979797;
   color:white;
 }
 
@@ -142,19 +146,19 @@ p {
 
 .historyBack {
   max-width: 529px;
-  border: #02638c solid 1px;
-  background-color: black;
+  border: #000000 solid 1px;
+  background-color: #979797;
 }
 
 input {
-  border: #02638c solid 1px;
+  border: #000000 solid 1px;
 }
 
 button {
   margin: 5px;
-  border: #02638c solid 1px;
-  background-color: black;
-  color: white;
+  border: #000000 solid 1px;
+  background-color: white;
+  color: black;
 }
 
 .rightColumBtn{
@@ -163,7 +167,7 @@ button {
 }
 
 .boxHistory {
-  border: #02638c solid 1px;
+  border: #00b2ff solid 1px;
   color: white;
   background-color: black;
 }

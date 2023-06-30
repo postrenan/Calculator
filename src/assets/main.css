@@ -1,11 +1,1 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
-
-:root {
-    --primary-bg-color: #00b2ff;
-    --secondary-bg-color: #000000;
-    --primary-font-color: #ffffff;
-    --secondary-font-color: #000000;
-    --secondary-dp-font-color: #808080ff;
-    --primary-btn-color : #02638c;
-    --secondary-btn-color: #000000;
-}

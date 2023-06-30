@@ -12,40 +12,40 @@
           </div>
           <div class="is-mobile is-centered column has-text-centered box backgroundButtons">
             <div class="column is-paddingless is-vcentered divColumns is-mobile is-centered ">
-              <button class="button is-rounded is-danger is-outlined specialButton" @click="backspace"><-</button>
-              <button class="button is-rounded is-warning  is-outlined specialButton" @click="clear">AC</button>
-              <button class="button is-rounded  operatorBtn" @click="addOperator('²')">x²</button>
-              <button class="button is-rounded  operatorBtn" @click="addOperator('%')">%</button>
+              <button class="button  is-danger is-outlined specialButton" @click="backspace"><-</button>
+              <button class="button  is-warning  is-outlined specialButton" @click="clear">AC</button>
+              <button class="button   operatorBtn" @click="addOperator('²')">x²</button>
+              <button class="button   operatorBtn" @click="addOperator('%')">%</button>
             </div>
             <div class="column is-paddingless divColumns is-mobile is-centered">
-              <button class="button is-rounded operatorBtn" @click="addOperator('π')">π</button>
-              <button class="button is-rounded operatorBtn" @click="addOperator('(')">(</button>
-              <button class="button is-rounded operatorBtn" @click="addOperator(')')">)</button>
-              <button class="button is-rounded operatorBtn" @click="addOperator('*')">*</button>
+              <button class="button  operatorBtn" @click="addOperator('π')">π</button>
+              <button class="button  operatorBtn" @click="addOperator('(')">(</button>
+              <button class="button  operatorBtn" @click="addOperator(')')">)</button>
+              <button class="button  operatorBtn" @click="addOperator('*')">*</button>
             </div>
             <div class="column is-paddingless divColumns is-mobile is-centered">
-              <button class="button is-rounded " @click="addNumber(7)">7</button>
-              <button class="button is-rounded " @click="addNumber(8)"> 8</button>
-              <button class="button is-rounded " @click="addNumber(9)"> 9</button>
-              <button class="button  is-rounded operatorBtn" @click="addOperator('/')">/</button>
+              <button class="button  " @click="addNumber(7)">7</button>
+              <button class="button  " @click="addNumber(8)"> 8</button>
+              <button class="button  " @click="addNumber(9)"> 9</button>
+              <button class="button   operatorBtn" @click="addOperator('/')">/</button>
             </div>
             <div class="column is-paddingless divColumns is-mobile is-centered">
-              <button class="button is-rounded" @click="addNumber(4)">4</button>
-              <button class="button is-rounded" @click="addNumber(5)">5</button>
-              <button class="button is-rounded" @click="addNumber(6)">6</button>
-              <button class="button is-rounded operatorBtn" @click="addOperator('-')">-</button>
+              <button class="button " @click="addNumber(4)">4</button>
+              <button class="button " @click="addNumber(5)">5</button>
+              <button class="button " @click="addNumber(6)">6</button>
+              <button class="button  operatorBtn" @click="addOperator('-')">-</button>
             </div>
             <div class="column is-paddingless divColumns is-mobile is-centered">
-              <button class="button is-rounded" @click="addNumber(1)">1</button>
-              <button class="button is-rounded" @click="addNumber(2)">2</button>
-              <button class="button is-rounded" @click="addNumber(3)">3</button>
-              <button class="button is-rounded operatorBtn" @click="addOperator('+')">+</button>
+              <button class="button " @click="addNumber(1)">1</button>
+              <button class="button " @click="addNumber(2)">2</button>
+              <button class="button " @click="addNumber(3)">3</button>
+              <button class="button  operatorBtn" @click="addOperator('+')">+</button>
             </div>
             <div class="column is-paddingless divColumns is-mobile is-centered">
-              <router-link class="button is-rounded specialButton" to="/calculadora-juros-compostos">J.</router-link>
-              <button class="button is-rounded" @click="addNumber(0)">0</button>
-              <button class="button  is-rounded" @click="addOperator('.')">.</button>
-              <button class="button is-rounded is-success is-outlined specialButton" @click="equal">=</button>
+              <router-link class="button  specialButton" to="/calculadora-juros-compostos">J.</router-link>
+              <button class="button " @click="addNumber(0)">0</button>
+              <button class="button  " @click="addOperator('.')">.</button>
+              <button class="button  is-success is-outlined specialButton" @click="equal">=</button>
             </div>
           </div>
         </div>
@@ -332,14 +332,14 @@ export default {
 }
 
 .calculatorAll {
-  background-color: var(--primary-bg-color);
-  padding: 3px;
+  background-color: #00b2ff;
+  padding: 1px;
   max-width: 400px;
 }
 
 .display {
-  background-color: var(--primary-bg-color);
-  color: white;
+  background-color: #979797;
+  color: black;
   padding-bottom: 5px;
   padding-left: 5px;
   min-height: 89px;
@@ -349,18 +349,18 @@ export default {
 .previousResult {
   word-break: break-word;
   font-size: 20px;
-  color: var(--secondary-btn-color);
+  color: black;
 }
 
 .inputEntry {
-  background-color: var(--secondary-bg-color);
-  border: var(--secondary-bg-color) solid 2px;
+  background-color: white;
+  border: black solid 1px;
   outline: none;
   text-align: right;
   width: 100%;
   font-size: 20px;
   border-radius: 5px;
-  color: white;
+  color: black;
   word-break: break-all;
 }
 
@@ -370,7 +370,7 @@ export default {
 }
 
 .backgroundButtons {
-  background-color: #000000;
+  background-color: rgba(36, 78, 97, 0.56);
   max-width: 400px;
   padding-top: 15px;
   margin-top: -20px;
@@ -378,23 +378,23 @@ export default {
 
 
 button {
-  background-color: #000000;
-  color: white;
+  background-color: #ffffff;
+  color: #000000;
   margin: 10px;
-  border: #02638c solid 2px;
+  border: #000000 solid 2px;
   width: 55px;
   font-size: 20px;
 }
 
 .operatorBtn {
-  background-color: #08040c;
+  background-color: white;
   box-shadow: none;
   max-width: 56px;
-  border: #02638c solid 2px;
+  border: #000000 solid 2px;
   margin: 10px;
   width: 55px;
   font-size: 20px;
-  color: white;
+  color: black;
 }
 
 .buttonClean {
@@ -402,11 +402,12 @@ button {
   margin: 0 0 10px 0;
   width: auto;
   font-size: 20px;
+  border: #00b2ff solid 2px;
 }
 
 .specialButton {
-  background-color: #000000;
-  color: white;
+  background-color: #ededed;
+  color: black;
   max-width: 56px;
   border: solid 2px;
   margin: 10px;
@@ -419,7 +420,7 @@ button {
 }
 
 .historyBack {
-  background-color: #000000;
+  background-color:  #979797;
   border: #00b2ff solid 2px;
   width: 400px;
   max-width: 400px;
@@ -432,7 +433,7 @@ button {
   word-break: break-all;
   background-color: black;
   color: white;
-  border: #02638c solid 2px;
+  border: #00b2ff solid 2px;
 }
 
 @media only screen and (max-width: 1400px) {
@@ -466,15 +467,15 @@ button {
   button {
     margin: 4px;
     font-size: 10px;
-    border: #02638c solid 1px;
+    border: #000000 solid 1px;
     max-width: 40px;
   }
 
   .operatorBtn {
-    background-color: black;
+    background-color: white;
     margin: 4px;
     font-size: 10px;
-    border: #02638c solid 1px;
+    border: #000000 solid 1px;
     max-width: 40px;
 
   }
@@ -498,6 +499,8 @@ button {
     scale: 1.4;
     font-size: 10px;
     margin: 0 0 25px 10px;
+  border: #00b2ff solid 1px;
+
   }
 
 }
@@ -525,7 +528,7 @@ button {
 
   .inputEntry {
     max-width: 200px;
-    border: #02638c solid 1px;
+    border: #000000 solid 1px;
   }
 
   .divColumns {
@@ -535,22 +538,22 @@ button {
   button {
     width: 30px;
     font-size: 8px;
-    border: #02638c solid 1px;
+    border: #000000 solid 1px;
   }
 
   .specialButton {
     margin: 3px;
     font-size: 8px;
     width: 30px;
-    border: #02638c solid 1px;
+    border: #000000 solid 1px;
   }
 
   .operatorBtn {
-    background-color: black;
+    background-color: #ffffff;
     margin: 3px;
     font-size: 8px;
     width: 30px;
-    border: #02638c solid 1px;
+    border: #000000 solid 1px;
   }
 
   .historyBack {
@@ -563,7 +566,7 @@ button {
 
   .buttonClean {
     font-size: 8px;
-    border: #02638c solid 1px;
+    border: #00b2ff solid 1px;
     margin: 0 0 25px 25px;
   }
 
@@ -607,15 +610,20 @@ button {
   button {
     width: 20px;
     font-size: 8px;
-    border: #02638c solid 1px;
+    border: #000000 solid 1px;
   }
 
   .operatorBtn {
-    background-color: black;
+    background-color: #ffffff;
     margin: 3px;
     font-size: 8px;
     width: 20px;
-    border: #02638c solid 1px;
+    border: #000000 solid 1px;
+  }
+
+  .buttonClean{
+    border: #00b2ff solid 1px;
+
   }
 
   .specialButton {

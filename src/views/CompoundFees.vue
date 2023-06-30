@@ -9,7 +9,7 @@
             <input v-model="initialValue" @keydown="keyListener" id="input1" class="input is-rounded" type="number" min="0">
             <p>Taxa de juros a.a</p>
             <input v-model="interestRate" id="input2" class="input is-rounded" type="number" min="0" max="100">
-            <p>Tempo de rendimento (meses)</p>
+            <p>Tempo de rendimento (anos)</p>
             <input v-model="incomeTime" id="input3" class="input is-rounded" type="number" min="0" max="100">
             <h1 v-if="msgError === ''" class="subtitle subtitleResultStyle">Resultado: R$ {{ feesResult }}</h1>
             <h1 v-else class="subtitle subtitleResultStyle">{{ msgError }}</h1>
@@ -51,6 +51,10 @@ export default {
       msgError: '',
     }
   },
+  mounted() {
+    document.addEventListener('keypress', this.keyListener);
+    document.addEventListener('keydown', this.supportKeyListener);
+  },
   methods: {
     cleanHist() {
       this.history = [];
@@ -66,7 +70,7 @@ export default {
     feesEquation() {
       if (this.initialValue > 0 && this.incomeTime > 0) {
         this.interestRate = this.interestRate / 100;
-        this.feesResult = (this.initialValue * ((1 + (this.interestRate / this.incomeTime)) ** (this.incomeTime)));
+        this.feesResult = (this.initialValue * ((1 + this.interestRate) ** this.incomeTime));
         this.feesResult = this.feesResult.toFixed(2);
 
         this.history.unshift({
@@ -127,27 +131,22 @@ p {
 }
 
 .calculatorBack {
-  border: #02638c solid 1px;
-  background-color: black;
+  border: #000000FF solid 1px;
+  background-color: #00b2ff;
 }
 
-.historyBack {
-  border: #02638c solid 1px;
-  background-color: black;
-  max-width: 529px;
-}
 
 input{
-  border: #02638c solid 1px;
-  background-color: black;
+  border: #000000FF solid 1px;
+  background-color: #979797;
   color:white;
 }
 
 button {
-  background-color: black;
+  background-color: white;
   margin: 5px;
-  border: #02638c solid 1px;
-  color:white;
+  border: #000000FF solid 1px;
+  color:black;
 }
 
 .rightColumBtn {
@@ -155,10 +154,17 @@ button {
   padding: 12px 12px 0 0;
 }
 
+
+.historyBack {
+  border: #000000FF solid 1px;
+  background-color: #979797;
+  max-width: 529px;
+}
+
 .boxHistory {
-  border: #02638c solid 1px;
+  border: #00b2ff solid 1px;
   color: white;
-  background-color: black;
+  background-color: #000000FF;
 }
 
 </style>
