@@ -5,13 +5,17 @@
         <div class="is-mobile is-half is-centered  box calculatorBack">
           <div class="is-paddingless">
             <h2 class="title">Calculadora de juros compostos </h2>
-            <button class="button is-small is-rounded" @click="recurrentFees">recorrente</button>
+
             <p>Valor inicial(capital)</p>
             <input v-model="initialValue" autofocus  id="input1" class="input is-rounded" type="number" min="0">
             <p>Taxa de juros a.a</p>
             <input v-model="interestRate" id="input2" class="input is-rounded" type="number" min="0" max="100">
             <p>Tempo de rendimento (a.a)</p>
             <input v-model="incomeTime" id="input3" @keydown.enter="feesEquation" class="input is-rounded" type="number" min="0" max="100">
+            <div v-if="recurrent">
+              <p>Valor de recorrencia</p>
+              <input v-model="recurrentValue" id="input3" @keydown.enter="feesEquation" class="input is-rounded" type="number" min="0" max="100">
+            </div>
             <h1 v-if="msgError === ''" class="subtitle subtitleResultStyle">Resultado: R$ {{ feesResult }}</h1>
             <h1 v-else class="subtitle subtitleResultStyle">{{ msgError }}</h1>
           </div>
@@ -50,6 +54,8 @@ export default {
       feesResult: 0,
       history: [],
       msgError: '',
+      recurrent: false,
+      recurrentValue: '',
     }
   },
   mounted() {
@@ -69,6 +75,7 @@ export default {
       this.interestRate = '';
     },
     recurrentFees(){
+      this.recurrent = true;
       if (this.initialValue > 0 && this.incomeTime > 0) {
         this.interestRate = this.interestRate / 100;
         this.feesResult = (this.initialValue * ((1 + this.interestRate) ** this.incomeTime));
