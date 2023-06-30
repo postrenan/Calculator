@@ -351,7 +351,7 @@ export default {
 
 .display {
   background-color: black;
-  color: black;
+  color: white;
   padding-bottom: 5px;
   padding-left: 5px;
   min-height: 89px;
