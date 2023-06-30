@@ -4,7 +4,8 @@
       <div class="section columns is-mobile is-centered ">
         <div class="is-mobile is-half is-centered  box calculatorBack">
           <div class="is-paddingless">
-            <h2 class="title">Calculadora de juros compostos</h2>
+            <h2 class="title">Calculadora de juros compostos </h2>
+            <button class="button is-small is-rounded" @click="recurrentFees">recorrente</button>
             <p>Valor inicial(capital)</p>
             <input v-model="initialValue" autofocus  id="input1" class="input is-rounded" type="number" min="0">
             <p>Taxa de juros a.a</p>
@@ -66,6 +67,30 @@ export default {
       this.incomeTime = '';
       this.initialValue = '';
       this.interestRate = '';
+    },
+    recurrentFees(){
+      if (this.initialValue > 0 && this.incomeTime > 0) {
+        this.interestRate = this.interestRate / 100;
+        this.feesResult = (this.initialValue * ((1 + this.interestRate) ** this.incomeTime));
+        if(this.feesResult === Infinity) window.location.replace("https://www.youtube.com/watch?v=2nD10biL4xo&ab_channel=RenatoMartins");
+        this.feesResult = this.feesResult.toFixed(2);
+
+        this.history.unshift({
+          value: this.initialValue,
+          fees: this.interestRate,
+          time: this.incomeTime,
+          result: this.feesResult,
+        })
+        this.incomeTime = '';
+        this.initialValue = '';
+        this.interestRate = '';
+      } else {
+        this.msgError = 'Verifique se as areas foram preenchidas ' +
+            'e valores estão corretos';
+        setTimeout(() => {
+          this.msgError = '';
+        }, 2000);
+      }
     },
     feesEquation() {
       if (this.initialValue > 0 && this.incomeTime > 0) {

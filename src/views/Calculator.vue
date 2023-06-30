@@ -146,7 +146,7 @@ export default {
       this.current = this.current.substring(0, (this.current.length - 1));
     },
     operatorVerify(){
-      const operators = ["+", "-", "*", "/", "%", "!", "."];
+      const operators = ["+", "-", "*", "/", "%", "!", ".","²", "π"];
       return operators.some((operator) => this.current.includes(operator))
     },
     equal() {
